@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `pokemon` ADD COLUMN `captured` BOOLEAN NOT NULL DEFAULT false,
+    ADD COLUMN `tries` INTEGER NOT NULL DEFAULT 3;

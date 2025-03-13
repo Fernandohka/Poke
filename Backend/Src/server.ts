@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: '*', // Permite apenas requisições desta origem
+        origin: '*',
     })
 );
 const port = 8080;

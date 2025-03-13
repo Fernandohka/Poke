@@ -1,22 +1,28 @@
-import { APIURL } from "../Lib/Api";
 import axios from "axios";
+import { APIURL } from "../Lib/Api";
+import { Prisma } from "../Lib/Prisma.ts"
 
 class ApiService {
-    static async GetPokemon(id?: number) : Promise<any> {
+    static async GetAllPokemon() : Promise<any> {
         try {
-            const response = await axios.get(`${APIURL}/pokemon/${id}`)
-            return response.data
-        } catch (error) {
-            console.log(`Ocorreu o seguinte erro ao pegar os dados do pokemon: ${error}`)
-        }
-    }
+            const response = await axios.get(`${APIURL}/pokemon-species/?limit=1302`)
 
-    static async GetAllPokemons() : Promise<any> {
+            response.data.results.forEach(async e => {
+                var pokeSpecie = (await axios.get(e.url)).data
+                var poke = (await axios.get(pokeSpecie.varieties[0].pokemon.url)).data
+                await Prisma.pokemon.create({
+                    data: {
+                        name: e.name,
+                        id: pokeSpecie.id,
+                        capture_rate: pokeSpecie.capture_rate,
+                        image: poke.sprites.front_default
+                    }
+                });
+            });
 
-        try {
-            const response = await axios.get(`${APIURL}/pokemon/?limit=1302`)
+            return;
         } catch (error) {
-            console.log(`Ocorreu um erro ao pegar os dados: ${error}`)
+            console.log(`Ocorreu um erro ao cadastrar os dados: ${error}`)
         }
     }
 }
