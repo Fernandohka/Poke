@@ -7,6 +7,8 @@ class ApiService {
         try {
             const response = await axios.get(`${APIURL}/pokemon-species/?limit=1302`)
 
+            await Prisma.pokemon.deleteMany();
+
             response.data.results.forEach(async e => {
                 var pokeSpecie = (await axios.get(e.url)).data
                 var poke = (await axios.get(pokeSpecie.varieties[0].pokemon.url)).data

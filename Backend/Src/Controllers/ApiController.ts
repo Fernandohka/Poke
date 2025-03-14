@@ -18,7 +18,7 @@ class ApiController {
     static async Init(req: Request, res: Response) : Promise<any> {
         try {
             await ApiService.GetAllPokemon()
-            return
+            res.status(200).json({message: "Pokemon data saved"})
         } catch (error) {
             console.log(`An error has occurred: ${error}`)
         }
