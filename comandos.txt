@@ -1,0 +1,3 @@
+npm install -g @angular/cli
+ng new Frontend --skip-git true --skip-tests true
+ng add @angular/material
