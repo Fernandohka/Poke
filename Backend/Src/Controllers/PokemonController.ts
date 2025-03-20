@@ -10,8 +10,12 @@ class PokemonController {
             let data = await PokemonService.PokeCatch(+id)
             if(data === null)
                 res.status(200).json({message: "Pokemon can't be catch"})
-            else
-                res.status(200).json({pokemon: data})
+            else if(data.captured){
+                res.status(200).json({message: "Pokemon " + data.name + " captured", pokemon: data})
+            }
+            else {
+                res.status(200).json({message: "Pokemon " + data.name + " escaped", pokemon: data})
+            }
         } catch (error) {
             console.log(`An error has occurred: ${error}`)
         }

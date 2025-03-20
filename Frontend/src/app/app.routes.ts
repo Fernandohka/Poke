@@ -5,7 +5,7 @@ import { TeamPageComponent } from './pages/team-page/team-page.component';
 
 export const routes: Routes = [
     {
-        path: "",
+        path: "home",
         component: HomePageComponent
     },
     {

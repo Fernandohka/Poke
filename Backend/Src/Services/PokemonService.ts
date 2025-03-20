@@ -1,5 +1,3 @@
-import { APIURL } from "../Lib/Api";
-import axios from "axios";
 import { Prisma } from "../Lib/Prisma";
 
 class PokemonService {
@@ -14,16 +12,14 @@ class PokemonService {
             }
 
             let tentativa = Math.floor(Math.random() * 254 + 1)
-            console.log(tentativa)
 
-            console.log("a")
-            console.log(poke.capture_rate)
             if(tentativa < poke.capture_rate){
                 await Prisma.pokemon.update({
                     where: {id: id},
-                    data: {captured: true}
+                    data: {captured: true, tries: poke.tries-1}
                 })
                 poke.captured = true
+                poke.tries -= 1
             }
             else{
                 await Prisma.pokemon.update({

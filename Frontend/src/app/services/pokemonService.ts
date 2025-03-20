@@ -17,11 +17,19 @@ export class PokemonService {
 
     constructor(private http: HttpClient) { }
 
+    init() : Observable<PokeData> {
+        return this.http.get<PokeData>(this.apiUrl + "/init")
+    }
+
     getAllPoke() : Observable<PokeData> {
         return this.http.get<PokeData>(this.apiUrl + "/pokemon")
     }
-
+ 
     getTeam() : Observable<PokeData> {
         return this.http.get<PokeData>(this.apiUrl + "/team")
     }
+
+    catch(id: number) : Observable<PokeData> {
+        return this.http.post<PokeData>(this.apiUrl + "/catch/" + id, "")
+    } 
 }

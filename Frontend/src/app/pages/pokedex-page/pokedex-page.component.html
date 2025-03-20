@@ -1,8 +1,12 @@
+<a [href]="'/home'">
+    <button>Return</button>
+</a>
+
 <div class="container">
     @for (poke of (pokemon | async)?.pokemon; track $index) {
         <mat-card appearance="outlined" class="card">
             <mat-card-header>
-                <mat-card-title>{{poke.name}}</mat-card-title>
+                <mat-card-title >{{poke.name | titlecase}}</mat-card-title>
             </mat-card-header>
             <img mat-card-image class="image" src="{{poke.image}}" alt="{{poke.name}} photo">
             <mat-card-content>
